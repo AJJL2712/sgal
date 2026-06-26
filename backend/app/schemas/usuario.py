@@ -7,6 +7,12 @@ class UsuarioCreate(BaseModel):
     contrasena: str
     rol: str
 
+class UsuarioUpdate(BaseModel):
+    nombre: Optional[str] = None
+    email: Optional[EmailStr] = None
+    rol: Optional[str] = None
+    activo: Optional[bool] = None
+
 class UsuarioResponse(BaseModel):
     id: int
     nombre: str

@@ -3,6 +3,7 @@ import Login from "./pages/auth/Login";
 import DashboardAdmin from "./pages/admin/Dashboard";
 import DashboardDocente from "./pages/docente/Dashboard";
 import DashboardEstudiante from "./pages/estudiante/Dashboard";
+import Usuarios from "./pages/admin/Usuarios";
 
 const PrivateRoute = ({ children, rol }) => {
   const token = localStorage.getItem("token");
@@ -42,6 +43,8 @@ export default function App() {
             </PrivateRoute>
           }
         />
+
+      <Route path="/admin/usuarios" element={<PrivateRoute rol="admin"><Usuarios /></PrivateRoute>} />
       </Routes>
     </BrowserRouter>
   );

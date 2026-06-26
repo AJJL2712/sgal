@@ -17,6 +17,7 @@ export default function DashboardAdmin() {
       uc: "UC002",
       icono: <FiUsers className="w-6 h-6" />,
       color: "#7c3aed",
+      path: "/admin/usuarios",
     },
     {
       titulo: "Gestionar Recursos",
@@ -24,6 +25,7 @@ export default function DashboardAdmin() {
       uc: "UC003",
       icono: <FiGrid className="w-6 h-6" />,
       color: "#4f46e5",
+      path: null,
     },
     {
       titulo: "Gestionar Horarios",
@@ -31,6 +33,7 @@ export default function DashboardAdmin() {
       uc: "UC003",
       icono: <FiCalendar className="w-6 h-6" />,
       color: "#0ea5e9",
+      path: null,
     },
     {
       titulo: "Generar Reportes",
@@ -38,6 +41,7 @@ export default function DashboardAdmin() {
       uc: "UC006",
       icono: <FiBarChart2 className="w-6 h-6" />,
       color: "#10b981",
+      path: null,
     },
   ];
 
@@ -46,13 +50,11 @@ export default function DashboardAdmin() {
       className="min-h-screen"
       style={{ background: "linear-gradient(135deg, #0f0c1a 0%, #1a1025 50%, #0d1117 100%)" }}
     >
-      {/* Glow ambiental */}
       <div
         className="fixed w-96 h-96 rounded-full blur-3xl opacity-10 pointer-events-none"
         style={{ background: "radial-gradient(circle, #7c3aed, transparent)", top: "10%", left: "20%" }}
       />
 
-      {/* Navbar */}
       <nav
         className="px-8 py-4 flex justify-between items-center"
         style={{
@@ -78,9 +80,7 @@ export default function DashboardAdmin() {
         </div>
 
         <div className="flex items-center gap-4">
-          <span className="text-sm" style={{ color: "#8b7aa8" }}>
-            {nombre}
-          </span>
+          <span className="text-sm" style={{ color: "#8b7aa8" }}>{nombre}</span>
           <button
             onClick={cerrarSesion}
             className="flex items-center gap-2 text-sm px-4 py-2 rounded-xl transition"
@@ -98,7 +98,6 @@ export default function DashboardAdmin() {
         </div>
       </nav>
 
-      {/* Contenido */}
       <div className="px-8 py-10 max-w-5xl mx-auto">
         <div className="mb-8">
           <h2 className="text-white text-2xl font-semibold">Panel de Administración</h2>
@@ -111,11 +110,12 @@ export default function DashboardAdmin() {
           {modulos.map((m, i) => (
             <div
               key={i}
-              className="rounded-2xl p-6 cursor-pointer transition-all duration-200"
+              onClick={() => m.path && navigate(m.path)}
+              className="rounded-2xl p-6 transition-all duration-200"
               style={{
                 background: "rgba(255,255,255,0.03)",
                 border: "1px solid rgba(255,255,255,0.07)",
-                backdropFilter: "blur(10px)",
+                cursor: m.path ? "pointer" : "default",
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.background = "rgba(255,255,255,0.06)";
@@ -136,13 +136,19 @@ export default function DashboardAdmin() {
                 <div>
                   <div className="flex items-center gap-2 mb-1">
                     <h3 className="text-white font-medium">{m.titulo}</h3>
-                    <span className="text-xs px-1.5 py-0.5 rounded" style={{ background: `${m.color}20`, color: m.color }}>
+                    <span
+                      className="text-xs px-1.5 py-0.5 rounded"
+                      style={{ background: `${m.color}20`, color: m.color }}
+                    >
                       {m.uc}
                     </span>
+                    {!m.path && (
+                      <span className="text-xs px-1.5 py-0.5 rounded" style={{ background: "rgba(255,255,255,0.05)", color: "#6b6080" }}>
+                        Próximamente
+                      </span>
+                    )}
                   </div>
-                  <p className="text-sm" style={{ color: "#6b6080" }}>
-                    {m.descripcion}
-                  </p>
+                  <p className="text-sm" style={{ color: "#6b6080" }}>{m.descripcion}</p>
                 </div>
               </div>
             </div>
