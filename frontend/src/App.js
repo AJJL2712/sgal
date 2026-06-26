@@ -1,25 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Login from "./pages/auth/Login";
+import DashboardAdmin from "./pages/admin/Dashboard";
+import DashboardDocente from "./pages/docente/Dashboard";
+import DashboardEstudiante from "./pages/estudiante/Dashboard";
 
-function App() {
+const PrivateRoute = ({ children, rol }) => {
+  const token = localStorage.getItem("token");
+  const rolGuardado = localStorage.getItem("rol");
+
+  if (!token) return <Navigate to="/" />;
+  if (rol && rolGuardado !== rol) return <Navigate to="/" />;
+  return children;
+};
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route
+          path="/admin"
+          element={
+            <PrivateRoute rol="admin">
+              <DashboardAdmin />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/docente"
+          element={
+            <PrivateRoute rol="docente">
+              <DashboardDocente />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/estudiante"
+          element={
+            <PrivateRoute rol="estudiante">
+              <DashboardEstudiante />
+            </PrivateRoute>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
-
-export default App;
