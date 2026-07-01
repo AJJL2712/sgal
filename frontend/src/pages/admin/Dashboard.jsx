@@ -25,7 +25,7 @@ export default function DashboardAdmin() {
       uc: "UC003",
       icono: <FiGrid className="w-6 h-6" />,
       color: "#4f46e5",
-      path: null,
+      path: "/admin/recursos",
     },
     {
       titulo: "Gestionar Horarios",
@@ -33,7 +33,7 @@ export default function DashboardAdmin() {
       uc: "UC003",
       icono: <FiCalendar className="w-6 h-6" />,
       color: "#0ea5e9",
-      path: null,
+      path: "/admin/horarios",
     },
     {
       titulo: "Generar Reportes",

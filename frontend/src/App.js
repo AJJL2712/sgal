@@ -4,6 +4,8 @@ import DashboardAdmin from "./pages/admin/Dashboard";
 import DashboardDocente from "./pages/docente/Dashboard";
 import DashboardEstudiante from "./pages/estudiante/Dashboard";
 import Usuarios from "./pages/admin/Usuarios";
+import Recursos from "./pages/admin/Recursos";
+import Horarios from "./pages/admin/Horarios.jsx";
 
 const PrivateRoute = ({ children, rol }) => {
   const token = localStorage.getItem("token");
@@ -45,6 +47,8 @@ export default function App() {
         />
 
       <Route path="/admin/usuarios" element={<PrivateRoute rol="admin"><Usuarios /></PrivateRoute>} />
+      <Route path="/admin/recursos" element={<PrivateRoute rol="admin"><Recursos /></PrivateRoute>} />
+      <Route path="/admin/horarios" element={<PrivateRoute rol="admin"><Horarios /></PrivateRoute>} />
       </Routes>
     </BrowserRouter>
   );
